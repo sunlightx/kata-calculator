@@ -74,10 +74,6 @@ func main() {
 		panic("Калькулятор принимает только целые числа и римские числа")
 	}
 
-	if operand1 > 10 || operand2 > 10 {
-		panic("Калькулятор не может работать с числами больше 10")
-	}
-
 	var result int
 	if operator == "+" {
 		result = operand1 + operand2
@@ -94,13 +90,13 @@ func main() {
 		panic("Калькулятор принимает следующие математические операции: +, -, *, /")
 	}
 
+	if result > 10 {
+		panic("Калькулятор не может работать с числами больше 10")
+	}
+
 	if isRim {
 		if result < 1 {
 			panic("Невалидный результат для римских чисел, число меньше единицы")
-		}
-
-		if result > 10 {
-			panic("Калькулятор не может работать с числами больше 10")
 		}
 		romanResult, exists := intToRoman[result]
 		if !exists {
