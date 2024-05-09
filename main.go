@@ -47,7 +47,18 @@ func main() {
 	}
 
 	isRoman := func(s string) bool {
+		_, err := strconv.Atoi(s)
+		if err == nil {
+			return false
+		}
 		_, exists := romanToInt[s]
+		if exists {
+			return exists
+		} else {
+			if romanToInt[s] == 0 {
+				panic("Калькулятор не может работать с числами больше 10")
+			}
+		}
 		return exists
 	}
 
@@ -57,7 +68,6 @@ func main() {
 	var isRim bool
 
 	if isRoman(parts[0]) && isRoman(parts[2]) {
-		isRim = true
 		operand1 = romanToInt[parts[0]]
 		operand2 = romanToInt[parts[2]]
 	} else if !isRoman(parts[0]) && !isRoman(parts[2]) {
@@ -69,6 +79,9 @@ func main() {
 		operand2, err = strconv.Atoi(parts[2])
 		if err != nil {
 			panic("Калькулятор принимает только целые числа")
+		}
+		if operand1 > 10 || operand2 > 10 {
+			panic("Калькулятор не может работать с числами больше 10")
 		}
 	} else {
 		panic("Калькулятор принимает только целые числа и римские числа")
@@ -90,20 +103,35 @@ func main() {
 		panic("Калькулятор принимает следующие математические операции: +, -, *, /")
 	}
 
-	if result > 10 {
-		panic("Калькулятор не может работать с числами больше 10")
+	if result > 100 {
+		panic("Калькулятор не может работать с результатом больше 100")
 	}
 
 	if isRim {
+		roman := arabicToRoman(result, intToRoman)
+		fmt.Println(roman)
 		if result < 1 {
 			panic("Невалидный результат для римских чисел, число меньше единицы")
 		}
-		romanResult, exists := intToRoman[result]
-		if !exists {
-			panic("Результат не может быть представлен римским числом")
-		}
-		fmt.Println(romanResult)
 	} else {
 		fmt.Print(result)
 	}
+}
+
+func arabicToRoman(num int, romanToInt map[int]string) string {
+	var roman string
+
+	if num >= 10 {
+		tens := num / 10
+		for i := 0; i < tens; i++ {
+			roman += romanToInt[10]
+		}
+		num = num % 10
+	}
+
+	if num > 0 {
+		roman += romanToInt[num]
+	}
+
+	return roman
 }
