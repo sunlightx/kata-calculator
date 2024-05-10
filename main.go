@@ -70,6 +70,7 @@ func main() {
 	if isRoman(parts[0]) && isRoman(parts[2]) {
 		operand1 = romanToInt[parts[0]]
 		operand2 = romanToInt[parts[2]]
+		isRim = true
 	} else if !isRoman(parts[0]) && !isRoman(parts[2]) {
 		var err error
 		operand1, err = strconv.Atoi(parts[0])
