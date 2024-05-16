@@ -129,7 +129,6 @@ func main() {
 }
 
 func arabicToRoman(num int, intToRoman map[int]string) string {
-	// Check if the number is directly available in the map
 	if roman, exists := intToRoman[num]; exists {
 		return roman
 	}
