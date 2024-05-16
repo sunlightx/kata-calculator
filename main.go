@@ -106,7 +106,7 @@ func main() {
 		result = operand1 * operand2
 	} else if operator == "/" {
 		if operand1 == 0 || operand2 == 0 {
-			panic("Ошибка, делить на 0 нельзя")
+			panic("Ошибка, делить на 0 нельзя!")
 		}
 		result = operand1 / operand2
 	} else {
